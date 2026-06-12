@@ -5,6 +5,8 @@ node_modules/
 .env
 .env.local
 .env.*.local
+.env.production
+.env.test
 
 # Prisma
 /prisma/migrations/
@@ -24,6 +26,9 @@ dist/
 build/
 out/
 
+# TypeScript
+*.tsbuildinfo
+
 # Coverage (tests)
 coverage/
 
@@ -35,7 +40,9 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Optional: cache
+# Cache
 .cache/
 .parcel-cache/
 .next/
+.vite/
+.turbo/

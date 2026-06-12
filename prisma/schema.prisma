@@ -15,12 +15,29 @@ datasource db {
 // Define your database models here 
 // login and register models
 
-model User{
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String
-  firstName String
-  lastName String
-  createdAt DateTime @default(now())
+enum Role {
+  USER
+  ADMIN
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      Role
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model Login {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  @@map("logins")
+}

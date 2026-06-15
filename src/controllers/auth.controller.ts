@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 class AuthController {
 
@@ -24,7 +25,6 @@ class AuthController {
             12
 
         );
-        console.log("HASH:", hashedPassword)
 
         const user = await prisma.user.create({
 
@@ -71,9 +71,21 @@ class AuthController {
                 error: "Invalid Credentials"
             });
         }
+        const token = jwt.sign(
+            {
+                userId: user.id,
+                email: user.email,
+                role: user.role
+            },
+            process.env.SECRET_KEY as string,
+            {
+                expiresIn: "1h"
+            }
+        )
 
         return res.status(200).json({
-            message: "Login successful"
+            message: "Login successful",
+            token
         });
     }
 

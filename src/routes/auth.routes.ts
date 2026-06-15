@@ -4,8 +4,11 @@ import authController from '../controllers/auth.controller';
 
 const routes = Router();
 
-routes.post('/auth/register', authController.register);
-routes.post('/auth/login', authController.login);
+routes.post('/register', authController.register);
+routes.post('/login', authController.login);
+routes.get("/test", (req, res) => {
+    res.send("Auth virker!");
+});
 
 
 export default routes

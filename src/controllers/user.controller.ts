@@ -35,6 +35,7 @@ class UserController {
                     createdAt: true
                 }
             });
+            res.json(user);
         } catch (error) {
             res.status(500).json({ error: 'Failed to fetch user' });
         }
@@ -81,6 +82,7 @@ class UserController {
                 },
             });
             res.json(updatedUser);
+            
         } catch (error) {
             res.status(500).json({ error: 'Failed to update user' });
         }

@@ -1,5 +1,6 @@
 import { prisma } from '../lib/prisma';
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 
 class UserController {
     async getAllUsers(req: Request, res: Response) {
@@ -21,28 +22,39 @@ class UserController {
     async getUserById(req: Request, res: Response) {
         const { id } = req.params;
         try {
-            const user = await prisma.user.findUnique({ where: { id: Number(id) } });
-            if (user) {
-                res.json(user);
-            } else {
-                res.status(404).json({ error: 'User not found' });
-            }
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: Number(id)
+                },
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                    role: true,
+                    createdAt: true
+                }
+            });
         } catch (error) {
             res.status(500).json({ error: 'Failed to fetch user' });
         }
     }
 
     async createUser(req: Request, res: Response) {
-        const { firstName, lastName, email, password, role } = req.body;
+        const { firstName, lastName, email, password } = req.body;
+
+        const hashedPassword = await bcrypt.hash(
+            password,
+            12
+        );
         try {
             const newUser = await prisma.user.create({
                 data: {
                     firstName,
                     lastName,
                     email,
-
-                    password,
-                    role,
+                    password: hashedPassword,
+                    role: 'USER',
                 },
             });
             res.status(201).json(newUser);

@@ -1,12 +1,13 @@
 import { Router } from "express";
 import UserController from "../controllers/user.controller";
 import { jwtMiddleware } from "../middleware/jwt.middleware";
+import { adminMiddleware } from "../middleware/admin.middleware";
 
 
 const routes = Router();
 
 // Hent alle brugere
-routes.get("/", jwtMiddleware, UserController.getAllUsers);
+routes.get("/", jwtMiddleware, adminMiddleware, UserController.getAllUsers);
 
 // Hent bruger
 routes.get("/:id", jwtMiddleware, UserController.getUserById);
@@ -18,7 +19,7 @@ routes.post("/", jwtMiddleware, UserController.createUser);
 routes.put("/:id", jwtMiddleware, UserController.updateUser);
 
 // Slet bruger
-routes.delete("/:id", jwtMiddleware, UserController.deleteUser);
+routes.delete("/:id", jwtMiddleware, adminMiddleware, UserController.deleteUser);
 
 
 

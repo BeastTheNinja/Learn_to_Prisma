@@ -1,6 +1,4 @@
-import { getToken, setToken } from "./auth.services";
-
-const API_URL = "http://localhost:3000";
+import { getToken } from "./auth.services";
 
 export const getUsers = async () => {
     const token = getToken();
@@ -38,46 +36,3 @@ export const deleteUser = async (id: number) => {
     return true;
 };
 
-
-export const login = async (email: string, password: string) => {
-    const response = await fetch(`${API_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(data.error || "Login failed");
-    }
-
-    setToken(data.token);
-    return data;
-};
-
-
-export const register = async (payload: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-}) => {
-    const response = await fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(data.error || "Register failed");
-    }
-
-    return data;
-};

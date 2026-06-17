@@ -1,96 +1,82 @@
-# Learn to Prisma
+# Backend
 
-A personal learning project where I explore how to use Prisma ORM with a Node.js and TypeScript backend.
+The backend is built with Express, TypeScript, Prisma, and MySQL.
 
-The goal of this project is to learn how to:
+## Features
 
-- Design database schemas with Prisma
-- Connect Prisma to a MySQL database
-- Create and manage migrations
-- Build REST APIs with Express
-- Implement user authentication and authorization
-- Structure a backend application using TypeScript
+* REST API
+* JWT Authentication
+* User Registration
+* User Login
+* Password Hashing with bcrypt
+* Role-Based Authorization
+* Protected Routes
+* CRUD Operations
+* Prisma ORM
 
 ## Tech Stack
 
-- TypeScript
-- Node.js
-- Express.js
-- Prisma ORM
-- MySQL
-- HeidiSQL (database management)
+* Node.js
+* Express.js
+* TypeScript
+* Prisma ORM
+* MySQL
+* JWT
+* bcrypt
 
-## Getting Started
+## Environment Variables
 
-### Clone the repository
+Create a .env file:
 
-```bash
-git clone https://github.com/BeastTheNinja/Learn_to_Prisma.git
-cd Learn_to_Prisma
+```env
+DATABASE_URL="mysql://username:password@localhost:3306/database_name"
+PORT=3000
+SECRET_KEY=your_secret_key
 ```
 
-### Install dependencies
+## Installation
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Configure environment variables
-
-Create a `.env` file based on `.env.example`.
-
-Example:
-
-```env
-DATABASE_URL="mysql://username:password@localhost:3306/database_name"
-PORT=3000
-JWT_SECRET=your_secret_key
-```
-
-### Generate Prisma Client
+Generate Prisma Client:
 
 ```bash
 npx prisma generate
 ```
 
-### Run database migrations
+Run migrations:
 
 ```bash
 npx prisma migrate dev
 ```
 
-### Start the development server
+Start development server:
 
 ```bash
 npm run dev
 ```
 
-## Database
+## Authentication
 
-This project uses:
+Protected routes require a JWT token:
 
-- MySQL as the database
-- Prisma as the ORM
-- HeidiSQL as the database management tool
+```http
+Authorization: Bearer <token>
+```
 
-## Project Goals
+## Roles
 
-This repository is primarily used for learning and experimenting with backend development concepts such as:
+Supported roles:
 
-- CRUD operations
-- Database relations
-- Authentication
-- API development
-- Error handling
-- Environment variables
-- Prisma best practices
+* USER
+* ADMIN
+
+Admin-only endpoints are protected using role middleware.
 
 ## Status
 
-🚧 Work in progress
-
-This project is actively being updated as I continue learning Prisma and backend development.
-
-## Author
-
-GitHub: [BeastTheNinja](https://github.com/BeastTheNinja)
+🚧 Learning project in active development.

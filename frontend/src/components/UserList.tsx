@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getToken } from "../services/auth.services";
-import { logout } from "../services/auth.services";
-import { useNavigate } from "react-router";
+import { getUsers, deleteUser } from "../services/user.services";
+import UserItem from "../components/UserItem";
+import Navbar from "./Navbar";
 
 
 type User = {
@@ -14,49 +14,41 @@ type User = {
 const UserList = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState("");
-    const navigate = useNavigate();
+
+    const handleDeleteUser = async (id: number) => {
+        try {
+            await deleteUser(id);
+
+            setUsers((prev) =>
+                prev.filter((user) => user.id !== id)
+            );
+        } catch (err) {
+            setError("Failed to delete user" + err);
+        }
+    };
+
     useEffect(() => {
-        const fetchUsers = async () => {
+        const loadUsers = async () => {
             try {
-                const token = getToken();
-
-                const response = await fetch(
-                    "http://localhost:3000/users",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    setError(data.error || "Failed to fetch users");
-                    return;
-                }
-
+                const data = await getUsers();
                 setUsers(data);
             } catch (err) {
-                setError("Server error:" + err);
+                setError(
+                    "Failed to fetch users" +
+                    (err instanceof Error ? `: ${err.message}` : "")
+                );
             }
         };
 
-        fetchUsers();
+        loadUsers();
     }, []);
+
 
     return (
         <div className="p-6">
             <h1 className="text-xl font-bold">Users</h1>
-            <button
-                onClick={() => {
-                    logout();
-                    navigate("/");
-                }}
-                className="mt-4 px-4 py-2 bg-red-500 text-white rounded"
-            >
-                Logout
-            </button>
+            <Navbar />
+            
 
             {error && (
                 <p className="text-red-500">{error}</p>
@@ -64,9 +56,7 @@ const UserList = () => {
 
             <ul className="mt-4 space-y-2">
                 {users.map((user) => (
-                    <li key={user.id} className="border p-2">
-                        {user.firstName} {user.lastName} - {user.email}
-                    </li>
+                    <UserItem key={user.id} user={user} onDelete={handleDeleteUser} />
                 ))}
             </ul>
         </div>

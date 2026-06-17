@@ -1,11 +1,23 @@
 import { Navigate } from "react-router";
-import { isLoggedIn } from "../services/auth.services";
+import { isLoggedIn, getRole } from "../services/auth.services";
 
-const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
-    if(!isLoggedIn()){
-        return <Navigate to="/" replace />
+interface ProtectedRouteProps {
+    children: React.ReactNode;
+    requiredRole?: string;
+}
+
+const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
+    if (!isLoggedIn()) {
+        return <Navigate to="/" replace />;
+    }
+
+    const role = getRole();
+
+    if (requiredRole && role !== requiredRole) {
+        return <Navigate to="/" replace />;
     }
 
     return children;
-}
+};
+
 export default ProtectedRoute;

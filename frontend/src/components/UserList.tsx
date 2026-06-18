@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUsers, deleteUser } from "../services/user.services";
 import UserItem from "../components/UserItem";
-import Navbar from "./Navbar";
-
 
 type User = {
     id: number;
@@ -47,7 +45,6 @@ const UserList = () => {
     return (
         <div className="p-6">
             <h1 className="text-xl font-bold">Users</h1>
-            <Navbar />
             
 
             {error && (

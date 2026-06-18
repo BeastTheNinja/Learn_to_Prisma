@@ -14,7 +14,7 @@ const LoginForm = () => {
 
         try {
             await login(email, password);
-            navigate("/users");
+            navigate("/home");
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : "Login failed"

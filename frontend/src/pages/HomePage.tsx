@@ -1,11 +1,10 @@
-import Navbar from "../components/Navbar";
+
 
 const HomePage = () => {
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold">Welcome to the Home Page</h1>
-            <Navbar />
-            <p className="mt-4">This is a protected page. Only logged-in users can see this.</p>
+        <div>
+            <h1 className="text-2xl font-bold mb-4">Welcome to My Blog App</h1>
+            <p className="mb-4">Discover amazing content and share your thoughts with the world.</p>
         </div>
     );
 }

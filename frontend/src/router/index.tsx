@@ -1,42 +1,63 @@
 import { createBrowserRouter } from "react-router";
-import ProtectedRoute from "../components/ProtectedRoute";
+
+import AuthLayout from "../components/layout/AuthLayout";
+import MainLayout from "../components/layout/MainLayout";
+import AdminLayout from "../components/layout/AdminLayout";
 
 import LoginPage from "../pages/LoginPage";
-import UsersPage from "../pages/Admin/UserPage";
-import AdminPage from "../pages/AdminPage";
 import RegisterPage from "../pages/RegisterPage";
 import HomePage from "../pages/HomePage";
 
-export const router = createBrowserRouter([
+import DashboardPage from "../pages/AdminPage";
+import UsersPage from "../pages/Admin/UserPage";
+import BlogsPage from "../pages/Admin/BlogPage";
+import ProtectedRoute from "../components/ProtectedRoute";
 
-    // Public routes
+export const router = createBrowserRouter([
     {
-        path: "/",
-        element: <LoginPage />
+        element: <AuthLayout />,
+        children: [
+            {
+                path: "/",
+                element: <LoginPage />
+            },
+            {
+                path: "/register",
+                element: <RegisterPage />
+            }
+        ]
     },
+
     {
-        path: "/register",
-        element: <RegisterPage />
+        element: <MainLayout />,
+        children: [
+            {
+                path: "/home",
+                element: <HomePage />
+            }
+        ]
     },
-    {
-        path: "/home",
-        element: (
-            <HomePage />
-        )
-    },
-    // Admin routes
-    {
-        path: "/admin/users",
-        element: (
-            <ProtectedRoute requiredRole="ADMIN">
-                <UsersPage />
-            </ProtectedRoute>)
-    },
+
     {
         path: "/admin",
         element: (
             <ProtectedRoute requiredRole="ADMIN">
-                <AdminPage />
-            </ProtectedRoute>)
+                <AdminLayout />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <DashboardPage />
+            },
+            {
+                path: "users",
+                element: <UsersPage />
+            },
+            {
+                path: "blogs",
+                element: <BlogsPage />
+            }
+        ]
     }
 ]);

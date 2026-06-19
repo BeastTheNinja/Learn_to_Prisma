@@ -8,7 +8,7 @@ const LoginPage = () => {
             <LoginForm />
             <button
                 onClick={() => navigate("/register")}
-                className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
+                className=" mt-2 p-2 ml-18 bg-green-500 text-white rounded align-center flex justify-center"
             >
                 Don't have an account? Register
             </button>

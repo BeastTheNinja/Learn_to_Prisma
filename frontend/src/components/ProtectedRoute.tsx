@@ -1,6 +1,5 @@
 import { Navigate } from "react-router";
 import { isLoggedIn, getRole } from "../services/auth.services";
-import AdminNav from "./AdminNav";
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -21,7 +20,6 @@ const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
 
     return (
         <>
-            <AdminNav />
             {children}
         </>
     )

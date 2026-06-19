@@ -7,7 +7,7 @@ const RegisterPage = () => {
             <RegisterForm />
             <button
                 onClick={() => navigate("/")}
-                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded"
+                className=" mt-2 p-2 ml-18 bg-green-500 text-white rounded align-center flex justify-center"
             >
                 Already have an account? Login
             </button>

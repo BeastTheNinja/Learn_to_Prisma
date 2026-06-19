@@ -12,6 +12,9 @@ import DashboardPage from "../pages/AdminPage";
 import UsersPage from "../pages/Admin/UserPage";
 import BlogsPage from "../pages/Admin/BlogPage";
 import ProtectedRoute from "../components/ProtectedRoute";
+import CreateBlogPage from "../pages/Admin/CreateBlogPage";
+import EditUserPage from "../pages/Admin/EditUserPage";
+import CreateUserPage from "../pages/Admin/CreateUserPage";
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +60,18 @@ export const router = createBrowserRouter([
             {
                 path: "blogs",
                 element: <BlogsPage />
+            },
+            {
+                path: "createblog",
+                element: <CreateBlogPage />
+            },
+            {
+                path: "createuser",
+                element: <CreateUserPage />
+            },
+            {
+                path: "edituser",
+                element: <EditUserPage />
             }
         ]
     }

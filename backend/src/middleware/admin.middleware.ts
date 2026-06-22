@@ -5,18 +5,8 @@ export const adminMiddleware = (
     res: Response,
     next: NextFunction
 ) => {
-    const user = (req as any).user;
-
-    if (!user) {
-        return res.status(401).json({
-            error: "Unauthorized"
-        });
-    }
-
-    if (user.role !== "ADMIN") {
-        return res.status(403).json({
-            error: "Forbidden"
-        });
+    if (req.user?.role !== "ADMIN") {
+        return res.status(403).json({ error: "Forbidden" });
     }
 
     next();

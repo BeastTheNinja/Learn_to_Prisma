@@ -2,6 +2,7 @@ import express from "express";
 import userRoutes from "./routes/user.routes";
 import bodyParser from "body-parser";
 import authRoutes from "./routes/auth.routes";
+import blogRoutes from "./routes/blog.routes";
 import cors from "cors";
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors({
 
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
+app.use("/blogs", blogRoutes);
 
 
 export default app;

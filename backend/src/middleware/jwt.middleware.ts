@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
+import { JwtUser } from "../types/jwt";
 
 export const jwtMiddleware = (
     req: Request,
@@ -19,12 +19,12 @@ export const jwtMiddleware = (
         const decoded = jwt.verify(
             token,
             process.env.SECRET_KEY as string
-        );
+        ) as JwtUser;
 
-        (req as any).user = decoded;
+        req.user = decoded;
 
         next();
-    } catch (err) {
+    } catch {
         return res.status(401).json({ error: "Invalid token" });
     }
-}
+};
